@@ -7,11 +7,7 @@ export class BasePage {
     this.page = page;
   }
 
-  async waitForNetworkIdle() {
-    await this.page.waitForLoadState("domcontentloaded");
-  }
-
-  async reloadPage() {
+  async reloadPage(): Promise<void> {
     await this.page.reload();
   }
 
