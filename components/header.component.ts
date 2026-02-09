@@ -1,6 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 
-export class Header {
+export class HeaderComponent {
   readonly cartIcon: Locator;
   readonly cartBadge: Locator;
   readonly menuButton: Locator;

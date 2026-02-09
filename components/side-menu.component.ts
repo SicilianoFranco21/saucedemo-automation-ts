@@ -1,6 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 
-export class SideMenu {
+export class SideMenuComponent {
   readonly allItemsOption: Locator;
   readonly aboutOption: Locator;
   readonly logOutOption: Locator;
