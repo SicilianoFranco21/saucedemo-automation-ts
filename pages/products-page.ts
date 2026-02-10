@@ -5,9 +5,11 @@ import { HeaderComponent } from "../components/header.component.js";
 import { SideMenuComponent } from "../components/side-menu.component.js";
 import { ProductsSortComponent } from "../components/products-sort.component.js";
 import { ProductItemComponent } from "../components/product-item.component.js";
+import { FooterComponent } from "../components/footer.component.js";
 
 export class ProductsPage extends BasePage {
   readonly header: HeaderComponent;
+  readonly footer: FooterComponent;
   readonly sideMenu: SideMenuComponent;
   readonly productsSort: ProductsSortComponent;
   readonly products: Locator;
@@ -16,6 +18,7 @@ export class ProductsPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.header = new HeaderComponent(page);
+    this.footer = new FooterComponent(page);
     this.sideMenu = new SideMenuComponent(page);
     this.productsSort = new ProductsSortComponent(page);
     this.products = page.getByTestId("inventory-item");
