@@ -23,6 +23,10 @@ export class ProductItemComponent {
     return this.root.locator("button", { hasText: "Add to cart" });
   }
 
+  get removeButton(): Locator {
+    return this.root.locator("button", { hasText: "Remove" });
+  }
+
   async clickAddToCart(): Promise<void> {
     await this.addToCartButton.click();
   }
