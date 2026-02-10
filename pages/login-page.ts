@@ -2,32 +2,32 @@ import { BasePage } from "./base-page.js";
 import type { Page, Locator } from "@playwright/test";
 
 export class LoginPage extends BasePage {
-  readonly usernameLabel: Locator;
-  readonly passwordLabel: Locator;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
   readonly loginButton: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.usernameLabel = page.getByTestId("username");
-    this.passwordLabel = page.getByTestId("password");
+    this.usernameInput = page.getByTestId("username");
+    this.passwordInput = page.getByTestId("password");
     this.loginButton = page.getByTestId("login-button");
   }
 
-  async fillUsernameLabel(username: string): Promise<void> {
-    await this.usernameLabel.fill(username);
+  async fillUsername(username: string): Promise<void> {
+    await this.usernameInput.fill(username);
   }
 
-  async fillPasswordLabel(password: string): Promise<void> {
-    await this.passwordLabel.fill(password);
+  async fillPassword(password: string): Promise<void> {
+    await this.passwordInput.fill(password);
   }
 
-  async clickLoginButton(): Promise<void> {
+  async submit(): Promise<void> {
     await this.loginButton.click();
   }
 
   async login(username: string, password: string): Promise<void> {
-    await this.fillUsernameLabel(username);
-    await this.fillPasswordLabel(password);
-    await this.clickLoginButton();
+    await this.fillUsername(username);
+    await this.fillPassword(password);
+    await this.submit();
   }
 }
