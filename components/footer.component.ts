@@ -1,6 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 
-export class Footer {
+export class FooterComponent {
   readonly twitterIcon: Locator;
   readonly facebookIcon: Locator;
   readonly linkedinIcon: Locator;
