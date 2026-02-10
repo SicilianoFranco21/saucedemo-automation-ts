@@ -16,7 +16,7 @@ export class ProductPage extends BasePage {
     this.header = new HeaderComponent(page);
     this.title = page.getByTestId("inventory-item-name");
     this.description = page.getByTestId("inventory-item-desc");
-    this.price = page.getByTestId("inventory_item_price");
+    this.price = page.getByTestId("inventory-item-price");
     this.addToCartButton = page.getByTestId("add-to-cart");
     this.backToProductsButton = page.getByTestId("back-to-products");
     this.removeButton = page.getByTestId("remove");
