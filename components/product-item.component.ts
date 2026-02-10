@@ -27,23 +27,11 @@ export class ProductItemComponent {
     return this.root.locator("button", { hasText: "Remove" });
   }
 
-  async AddToCart(): Promise<void> {
+  async addToCart(): Promise<void> {
     await this.addToCartButton.click();
   }
 
   async remove(): Promise<void> {
     await this.removeButton.click();
-  }
-
-  async getTitleText(): Promise<string | null> {
-    return await this.title.textContent();
-  }
-
-  async getDescriptionText(): Promise<string | null> {
-    return await this.description.textContent();
-  }
-
-  async getPriceText(): Promise<string | null> {
-    return await this.price.textContent();
   }
 }
