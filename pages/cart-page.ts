@@ -25,11 +25,11 @@ export class CartPage extends ProductListBasePage {
     return new ProductPage(this.page);
   }
 
-  async clickOnCheckoutButton(): Promise<void> {
+  async checkout(): Promise<void> {
     await this.checkoutButton.click();
   }
 
-  async clickOnContinueShoppingButton(): Promise<void> {
+  async ContinueShopping(): Promise<void> {
     await this.continueShoppingButton.click();
   }
 }

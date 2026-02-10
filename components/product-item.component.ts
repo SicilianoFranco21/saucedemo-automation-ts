@@ -31,7 +31,7 @@ export class ProductItemComponent {
     await this.addToCartButton.click();
   }
 
-  async remove(): Promise<void> {
+  async removeFromCart(): Promise<void> {
     await this.removeButton.click();
   }
 }
