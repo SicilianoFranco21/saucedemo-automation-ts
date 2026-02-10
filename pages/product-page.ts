@@ -9,6 +9,7 @@ export class ProductPage extends BasePage {
   readonly price: Locator;
   readonly addToCartButton: Locator;
   readonly backToProductsButton: Locator;
+  readonly removeButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -16,14 +17,9 @@ export class ProductPage extends BasePage {
     this.title = page.getByTestId("inventory-item-name");
     this.description = page.getByTestId("inventory-item-desc");
     this.price = page.getByTestId("inventory_item_price");
-
-    this.addToCartButton = page.locator("button", {
-      hasText: "Add to cart",
-    });
-
-    this.backToProductsButton = page.locator("button", {
-      hasText: "Back to products",
-    });
+    this.addToCartButton = page.getByTestId("add-to-cart");
+    this.backToProductsButton = page.getByTestId("back-to-products");
+    this.removeButton = page.getByTestId("remove");
   }
 
   async addToCart(): Promise<void> {
@@ -32,6 +28,10 @@ export class ProductPage extends BasePage {
 
   async backToProducts(): Promise<void> {
     await this.backToProductsButton.click();
+  }
+
+  async clickRemoveButton(): Promise<void> {
+    await this.removeButton.click();
   }
 
   async getTitleText(): Promise<string | null> {
