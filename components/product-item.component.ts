@@ -16,7 +16,7 @@ export class ProductItemComponent {
   }
 
   get price(): Locator {
-    return this.root.getByTestId("inventory_item_price");
+    return this.root.getByTestId("inventory-item-price");
   }
 
   get addToCartButton(): Locator {
