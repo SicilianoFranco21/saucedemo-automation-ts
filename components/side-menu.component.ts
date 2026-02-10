@@ -1,31 +1,31 @@
 import type { Page, Locator } from "@playwright/test";
 
 export class SideMenuComponent {
-  readonly allItemsOption: Locator;
-  readonly aboutOption: Locator;
-  readonly logOutOption: Locator;
-  readonly closeMenuButton: Locator;
+  readonly allItemsLink: Locator;
+  readonly aboutLink: Locator;
+  readonly logoutLink: Locator;
+  readonly closeButton: Locator;
 
   constructor(page: Page) {
-    this.allItemsOption = page.getByTestId("inventory-sidebar-link");
-    this.aboutOption = page.getByTestId("about-sidebar-link");
-    this.logOutOption = page.getByTestId("logout-sidebar-link");
-    this.closeMenuButton = page.getByRole("button", { name: "Close Menu" });
+    this.allItemsLink = page.getByTestId("inventory-sidebar-link");
+    this.aboutLink = page.getByTestId("about-sidebar-link");
+    this.logoutLink = page.getByTestId("logout-sidebar-link");
+    this.closeButton = page.getByRole("button", { name: "Close Menu" });
   }
 
-  async clickAllItemsOption(): Promise<void> {
-    await this.allItemsOption.click();
+  async goToAllItems(): Promise<void> {
+    await this.allItemsLink.click();
   }
 
-  async clickAboutOption(): Promise<void> {
-    await this.aboutOption.click();
+  async goToAbout(): Promise<void> {
+    await this.aboutLink.click();
   }
 
-  async clickLogoutOption(): Promise<void> {
-    await this.logOutOption.click();
+  async logout(): Promise<void> {
+    await this.logoutLink.click();
   }
 
-  async clickCloseMenuOption(): Promise<void> {
-    await this.closeMenuButton.click();
+  async close(): Promise<void> {
+    await this.closeButton.click();
   }
 }

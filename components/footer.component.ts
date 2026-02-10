@@ -1,31 +1,31 @@
 import type { Page, Locator } from "@playwright/test";
 
 export class FooterComponent {
-  readonly twitterIcon: Locator;
-  readonly facebookIcon: Locator;
-  readonly linkedinIcon: Locator;
-  readonly footerCopy: Locator;
+  readonly twitterLink: Locator;
+  readonly facebookLink: Locator;
+  readonly linkedinLink: Locator;
+  readonly footerText: Locator;
 
   constructor(page: Page) {
-    this.twitterIcon = page.getByTestId("social-twitter");
-    this.facebookIcon = page.getByTestId("social-facebook");
-    this.linkedinIcon = page.getByTestId("social-linkedin");
-    this.footerCopy = page.getByTestId("footer-copy");
+    this.twitterLink = page.getByTestId("social-twitter");
+    this.facebookLink = page.getByTestId("social-facebook");
+    this.linkedinLink = page.getByTestId("social-linkedin");
+    this.footerText = page.getByTestId("footer-copy");
   }
 
-  async clickTwitterIcon(): Promise<void> {
-    await this.twitterIcon.click();
+  async goToTwitter(): Promise<void> {
+    await this.twitterLink.click();
   }
 
-  async clickFacebookIcon(): Promise<void> {
-    await this.facebookIcon.click();
+  async goToFacebook(): Promise<void> {
+    await this.facebookLink.click();
   }
 
-  async clickLinkedinIcon(): Promise<void> {
-    await this.linkedinIcon.click();
+  async goToLinkedin(): Promise<void> {
+    await this.linkedinLink.click();
   }
 
-  async getFooterCopyText(): Promise<string | null> {
-    return await this.footerCopy.textContent();
+  async footerCopy(): Promise<string | null> {
+    return await this.footerText.textContent();
   }
 }
