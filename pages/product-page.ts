@@ -6,8 +6,9 @@ import { SideMenuComponent } from "../components/side-menu.component.js";
 import { FooterComponent } from "../components/footer.component.js";
 
 export class ProductPage extends BasePage {
+  readonly url: string = "/inventory-item.html";
   readonly header: HeaderComponent;
-  readonly footer: FooterComponent
+  readonly footer: FooterComponent;
   readonly sideMenu: SideMenuComponent;
   readonly productItem: ProductItemComponent;
   readonly backToProductButton: Locator;
@@ -24,5 +25,9 @@ export class ProductPage extends BasePage {
 
   async backToProduct(): Promise<void> {
     await this.backToProductButton.click();
+  }
+
+  async openById(id: string | number): Promise<void> {
+    await this.page.goto(`${this.url}?id=${id}`);
   }
 }
