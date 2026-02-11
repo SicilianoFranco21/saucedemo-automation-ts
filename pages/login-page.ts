@@ -2,6 +2,7 @@ import { BasePage } from "./base-page.js";
 import type { Page, Locator } from "@playwright/test";
 
 export class LoginPage extends BasePage {
+  readonly url: string = "/";
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
