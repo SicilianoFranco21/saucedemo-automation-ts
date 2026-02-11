@@ -5,6 +5,7 @@ import { BasePage } from "./base-page.js";
 import type { Page, Locator } from "@playwright/test";
 
 export class CheckoutStepOnePage extends BasePage {
+  readonly url: string = "/checkout-step-one.html";
   readonly header: HeaderComponent;
   readonly footer: FooterComponent;
   readonly sideMenu: SideMenuComponent;
