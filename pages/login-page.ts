@@ -14,6 +14,10 @@ export class LoginPage extends BasePage {
     this.loginButton = page.getByTestId("login-button");
   }
 
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
+
   async fillUsername(username: string): Promise<void> {
     await this.usernameInput.fill(username);
   }

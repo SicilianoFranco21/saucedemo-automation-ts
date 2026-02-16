@@ -12,4 +12,8 @@ export class ProductsPage extends ProductListBasePage {
     this.productsSort = new ProductsSortComponent(page);
     this.inventoryTitle = page.getByTestId("title");
   }
+
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
 }

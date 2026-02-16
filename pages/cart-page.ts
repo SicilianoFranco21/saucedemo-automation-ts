@@ -14,6 +14,10 @@ export class CartPage extends ProductListBasePage {
     this.checkoutButton = page.getByTestId("checkout");
   }
 
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
+
   async checkout(): Promise<void> {
     await this.checkoutButton.click();
   }

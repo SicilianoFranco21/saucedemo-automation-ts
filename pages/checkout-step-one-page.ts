@@ -29,6 +29,10 @@ export class CheckoutStepOnePage extends BasePage {
     this.continueButton = page.getByTestId("continue");
   }
 
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
+
   async fillCheckoutForm(
     firstName?: string,
     lastName?: string,

@@ -21,6 +21,10 @@ export class CheckoutCompletePage extends BasePage {
     this.backHomeButton = page.getByTestId("finish");
   }
 
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
+
   async backHome(): Promise<void> {
     await this.backHomeButton.click();
   }

@@ -23,6 +23,10 @@ export class CheckoutStepTwoPage extends ProductListBasePage {
     this.finishButton = page.getByTestId("finish");
   }
 
+  async navigate(): Promise<void> {
+    await this.page.goto(this.url);
+  }
+
   async cancel(): Promise<void> {
     await this.cancelButton.click();
   }
