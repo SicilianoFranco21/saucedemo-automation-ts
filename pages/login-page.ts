@@ -22,8 +22,16 @@ export class LoginPage extends BasePage {
     await this.usernameInput.fill(username);
   }
 
+  async clearUsername(): Promise<void> {
+    await this.usernameInput.clear();
+  }
+
   async fillPassword(password: string): Promise<void> {
     await this.passwordInput.fill(password);
+  }
+
+  async clearPassword(): Promise<void> {
+    await this.passwordInput.clear();
   }
 
   async submit(): Promise<void> {
