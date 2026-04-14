@@ -1,0 +1,14 @@
+{
+  "userInformation": {
+    "sampleInfo1": {
+      "firstName": "Barry",
+      "lastName": "Allen",
+      "postalCode": "1639"
+    },
+    "sampleInfo2": {
+      "firstName": "Iris",
+      "lastName": "West",
+      "postalCode": "1931"
+    }
+  }
+}
