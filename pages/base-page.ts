@@ -1,14 +1,14 @@
-import type { Page } from "@playwright/test";
+import type { Page } from '@playwright/test';
 
 export abstract class BasePage {
-  protected abstract readonly url: string;
-  protected readonly page: Page;
+  abstract readonly url: string;
+  readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  async open(): Promise<void> {
+  async navigate(): Promise<void> {
     await this.page.goto(this.url);
   }
 
@@ -16,7 +16,7 @@ export abstract class BasePage {
     await this.page.reload();
   }
 
-  getCurrentUrl(): string {
+  get currentUrl(): string {
     return this.page.url();
   }
 }
