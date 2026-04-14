@@ -1,4 +1,4 @@
-import type { Locator } from "@playwright/test";
+import type { Locator } from '@playwright/test';
 
 export class ProductItemComponent {
   private readonly root: Locator;
@@ -8,23 +8,23 @@ export class ProductItemComponent {
   }
 
   get title(): Locator {
-    return this.root.getByTestId("inventory-item-name");
+    return this.root.getByTestId('inventory-item-name');
   }
 
   get description(): Locator {
-    return this.root.getByTestId("inventory-item-desc");
+    return this.root.getByTestId('inventory-item-desc');
   }
 
   get price(): Locator {
-    return this.root.getByTestId("inventory-item-price");
+    return this.root.getByTestId('inventory-item-price');
   }
 
   get addToCartButton(): Locator {
-    return this.root.locator("button", { hasText: "Add to cart" });
+    return this.root.locator('button', { hasText: 'Add to cart' });
   }
 
   get removeButton(): Locator {
-    return this.root.locator("button", { hasText: "Remove" });
+    return this.root.locator('button', { hasText: 'Remove' });
   }
 
   async addToCart(): Promise<void> {
@@ -33,5 +33,9 @@ export class ProductItemComponent {
 
   async removeFromCart(): Promise<void> {
     await this.removeButton.click();
+  }
+
+  async open(): Promise<void> {
+    await this.title.click();
   }
 }

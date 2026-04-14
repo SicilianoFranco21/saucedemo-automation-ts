@@ -1,14 +1,16 @@
-import type { Page, Locator } from "@playwright/test";
+import type { Locator } from '@playwright/test';
 
 export class HeaderComponent {
+  readonly headerTitle: Locator;
   readonly cartLink: Locator;
   readonly cartCountBadge: Locator;
   readonly menuButton: Locator;
 
-  constructor(page: Page) {
-    this.cartLink = page.getByTestId("shopping-cart-link");
-    this.menuButton = page.getByRole("button", { name: "Open Menu" });
-    this.cartCountBadge = page.getByTestId("shopping-cart-badge");
+  constructor(root: Locator) {
+    this.headerTitle = root.getByText('Swag Labs');
+    this.cartLink = root.getByTestId('shopping-cart-link');
+    this.menuButton = root.getByRole('button', { name: 'Open Menu' });
+    this.cartCountBadge = root.getByTestId('shopping-cart-badge');
   }
 
   async openMenu(): Promise<void> {
