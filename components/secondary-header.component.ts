@@ -1,10 +1,12 @@
-import type { Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class SecondaryHeaderComponent {
+  readonly root: Locator;
   readonly title: Locator;
 
-  constructor(root: Locator) {
-    this.title = root.getByTestId('title');
+  constructor(page: Page) {
+    this.root = page.getByTestId('secondary-header');
+    this.title = this.root.getByTestId('title');
   }
 
   async getTitle(): Promise<string> {

@@ -1,16 +1,18 @@
-import type { Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class SideMenuComponent {
+  readonly root: Locator;
   readonly allItemsLink: Locator;
   readonly aboutLink: Locator;
   readonly logoutLink: Locator;
   readonly closeButton: Locator;
 
-  constructor(root: Locator) {
-    this.allItemsLink = root.getByTestId('inventory-sidebar-link');
-    this.aboutLink = root.getByTestId('about-sidebar-link');
-    this.logoutLink = root.getByTestId('logout-sidebar-link');
-    this.closeButton = root.getByRole('button', { name: 'Close Menu' });
+  constructor(page: Page) {
+    this.root = page.locator('.bm-menu-wrap');
+    this.allItemsLink = this.root.getByTestId('inventory-sidebar-link');
+    this.aboutLink = this.root.getByTestId('about-sidebar-link');
+    this.logoutLink = this.root.getByTestId('logout-sidebar-link');
+    this.closeButton = this.root.getByRole('button', { name: 'Close Menu' });
   }
 
   async goToAllItems(): Promise<void> {

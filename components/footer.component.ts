@@ -1,16 +1,18 @@
-import type { Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class FooterComponent {
+  readonly root: Locator;
   readonly twitterLink: Locator;
   readonly facebookLink: Locator;
   readonly linkedinLink: Locator;
   readonly footerText: Locator;
 
-  constructor(root: Locator) {
-    this.twitterLink = root.getByTestId('social-twitter');
-    this.facebookLink = root.getByTestId('social-facebook');
-    this.linkedinLink = root.getByTestId('social-linkedin');
-    this.footerText = root.getByTestId('footer-copy');
+  constructor(page: Page) {
+    this.root = page.getByTestId('footer');
+    this.twitterLink = this.root.getByTestId('social-twitter');
+    this.facebookLink = this.root.getByTestId('social-facebook');
+    this.linkedinLink = this.root.getByTestId('social-linkedin');
+    this.footerText = this.root.getByTestId('footer-copy');
   }
 
   async goToTwitter(): Promise<void> {

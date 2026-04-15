@@ -1,10 +1,12 @@
-import type { Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class ProductsSortComponent {
+  readonly root: Locator;
   readonly sortDropdown: Locator;
 
-  constructor(root: Locator) {
-    this.sortDropdown = root.getByTestId('product-sort-container');
+  constructor(page: Page) {
+    this.root = page.locator('.right_component');
+    this.sortDropdown = this.root.getByTestId('product-sort-container');
   }
 
   async sortByPriceLowToHigh(): Promise<void> {
