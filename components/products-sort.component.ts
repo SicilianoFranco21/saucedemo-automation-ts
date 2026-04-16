@@ -9,19 +9,17 @@ export class ProductsSortComponent {
     this.sortDropdown = this.root.getByTestId('product-sort-container');
   }
 
-  async sortByPriceLowToHigh(): Promise<void> {
-    await this.sortDropdown.selectOption('lohi');
+  private async getCurrentSortValue(): Promise<string | null> {
+    return await this.sortDropdown.inputValue();
   }
 
-  async sortByPriceHighToLow(): Promise<void> {
-    await this.sortDropdown.selectOption('hilo');
+  async sortBy(option: 'lohi' | 'hilo' | 'az' | 'za'): Promise<void> {
+    await this.sortDropdown.selectOption(option);
   }
 
-  async sortByNameAZ(): Promise<void> {
-    await this.sortDropdown.selectOption('az');
-  }
-
-  async sortByNameZA(): Promise<void> {
-    await this.sortDropdown.selectOption('za');
+  async getCurrentSortLabel(): Promise<string | null> {
+    const currentSortValue: string | null = await this.getCurrentSortValue();
+    if (!currentSortValue) return null;
+    return await this.sortDropdown.locator(`option[value='${currentSortValue}']`).textContent();
   }
 }
