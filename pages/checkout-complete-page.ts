@@ -1,28 +1,17 @@
-import { FooterComponent } from "../components/footer.component.js";
-import { HeaderComponent } from "../components/header.component.js";
-import { SideMenuComponent } from "../components/side-menu.component.js";
-import type { Page, Locator } from "@playwright/test";
-import { BasePage } from "./base-page.js";
+import type { Page, Locator } from '@playwright/test';
+import { SauceDemoBasePage } from './saucedemo-base-page.js';
 
-export class CheckoutCompletePage extends BasePage {
-  readonly url: string = "/checkout-complete.html";
-  readonly header: HeaderComponent;
-  readonly footer: FooterComponent;
-  readonly sideMenu: SideMenuComponent;
-  readonly checkoutStepTwoTitle: Locator;
+export class CheckoutCompletePage extends SauceDemoBasePage {
+  readonly url: string = '/checkout-complete.html';
+  readonly checkoutCompleteTitle: Locator;
+  readonly checkoutCompleteDescription: Locator;
   readonly backHomeButton: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.header = new HeaderComponent(page);
-    this.footer = new FooterComponent(page);
-    this.sideMenu = new SideMenuComponent(page);
-    this.checkoutStepTwoTitle = page.getByTestId("title");
-    this.backHomeButton = page.getByTestId("finish");
-  }
-
-  async navigate(): Promise<void> {
-    await this.page.goto(this.url);
+    this.checkoutCompleteTitle = page.getByTestId('complete-header');
+    this.checkoutCompleteDescription = page.getByTestId('complete-text');
+    this.backHomeButton = page.getByTestId('back-to-products');
   }
 
   async backHome(): Promise<void> {

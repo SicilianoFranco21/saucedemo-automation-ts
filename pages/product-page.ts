@@ -1,33 +1,28 @@
-import type { Page, Locator } from "@playwright/test";
-import { BasePage } from "./base-page.js";
-import { HeaderComponent } from "../components/header.component.js";
-import { ProductItemComponent } from "../components/product-item.component.js";
-import { SideMenuComponent } from "../components/side-menu.component.js";
-import { FooterComponent } from "../components/footer.component.js";
+import type { Page, Locator } from '@playwright/test';
+import { ProductItemComponent } from '../components/product-item.component.js';
+import { SauceDemoBasePage } from './saucedemo-base-page.js';
 
-export class ProductPage extends BasePage {
-  readonly url: string = "/inventory-item.html";
-  readonly header: HeaderComponent;
-  readonly footer: FooterComponent;
-  readonly sideMenu: SideMenuComponent;
+export class ProductPage extends SauceDemoBasePage {
+  readonly url: string = '/inventory-item.html'; // baseUrl for each specific product page
   readonly productItem: ProductItemComponent;
-  readonly backToProductButton: Locator;
+  readonly backToProductsButton: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.header = new HeaderComponent(page);
-    this.footer = new FooterComponent(page);
-    this.sideMenu = new SideMenuComponent(page);
-    const productRoot = page.getByTestId("inventory-item");
-    this.productItem = new ProductItemComponent(productRoot);
-    this.backToProductButton = page.getByTestId("back-to-products");
+    const productItemLocator: Locator = page.getByTestId('inventory-item');
+    this.productItem = new ProductItemComponent(productItemLocator);
+    this.backToProductsButton = page.getByTestId('back-to-products');
   }
 
-  async backToProduct(): Promise<void> {
-    await this.backToProductButton.click();
+  private buildUrl(id: string | number): string {
+    return `${this.url}?id=${id}`;
+  }
+
+  async backToProducts(): Promise<void> {
+    await this.backToProductsButton.click();
   }
 
   async openById(id: string | number): Promise<void> {
-    await this.page.goto(`${this.url}?id=${id}`);
+    await this.page.goto(this.buildUrl(id));
   }
 }
