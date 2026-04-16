@@ -1,50 +1,32 @@
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../../pages/login-page.js";
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../../pages/login-page.js';
+import  users from '../../data/users.json' with { type: 'json' };
 
-test.describe("Login Feature", () => {
+test.describe('Login Feature', () => {
   let loginPage: LoginPage;
-
-  const users = {
-    validUser: {
-      username: "standard_user",
-      password: "secret_sauce",
-    },
-    invalidUser: {
-      username: "wrong_user",
-      password: "wrong_password",
-    },
-    lockedOutUser: {
-      username: "locked_out_user",
-      password: "secret_sauce",
-    },
-  };
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     await loginPage.navigate();
   });
 
-  test.describe("Login - Form UI elements", () => {
-    test("Verify username field is displayed and editable", async () => {
-      await loginPage.fillUsername(users.validUser.username);
-      await expect(loginPage.usernameInput).toHaveValue(
-        users.validUser.username,
-      );
+  test.describe('Login - Form UI elements', () => {
+    test('Verify username field is displayed and editable', async () => {
+      await loginPage.fillUsername(users.standard.username);
+      await expect(loginPage.usernameInput).toHaveValue(users.standard.username);
     });
 
-    test("Verify password field is displayed and editable", async () => {
-      await loginPage.fillPassword(users.validUser.password);
-      await expect(loginPage.passwordInput).toHaveValue(
-        users.validUser.password,
-      );
+    test('Verify password field is displayed and editable', async () => {
+      await loginPage.fillPassword(users.standard.password);
+      await expect(loginPage.passwordInput).toHaveValue(users.standard.password);
     });
 
-    test.describe("Verify submit button state validation", () => {
+    test.describe('Verify submit button state validation', () => {
       const states = [
-        ["both empty", "", ""],
-        ["only username", users.validUser.username, ""],
-        ["only password", "", users.validUser.password],
-        ["both filled", users.validUser.username, users.validUser.password],
+        ['both empty', '', ''],
+        ['only username', users.standard.username, ''],
+        ['only password', '', users.standard.password],
+        ['both filled', users.standard.username, users.standard.password],
       ];
 
       for (const [name, username, password] of states) {
@@ -58,56 +40,50 @@ test.describe("Login Feature", () => {
     });
   });
 
-  test.describe("Login - Authentication", () => {
-    test.describe("Login - Negative Authentication", () => {
+  test.describe('Login - Authentication', () => {
+    test.describe('Login - Negative Authentication', () => {
       const errorScenarios = [
         {
-          name: "username is missing",
-          username: "",
-          password: users.validUser.password,
-          expectedError: "Username is required",
+          name: 'username is missing',
+          username: '',
+          password: users.standard.password,
+          expectedError: 'Username is required',
         },
         {
-          name: "password is missing",
-          username: users.validUser.username,
-          password: "",
-          expectedError: "Password is required",
+          name: 'password is missing',
+          username: users.standard.username,
+          password: '',
+          expectedError: 'Password is required',
         },
         {
-          name: "credentials are invalid",
-          username: users.invalidUser.username,
-          password: users.invalidUser.password,
-          expectedError: "Username and password do not match",
+          name: 'credentials are invalid',
+          username: users.invalid.username,
+          password: users.invalid.password,
+          expectedError: 'Username and password do not match',
         },
         {
-          name: "user account is locked",
-          username: users.lockedOutUser.username,
-          password: users.lockedOutUser.password,
-          expectedError: "Sorry, this user has been locked out",
+          name: 'user account is locked',
+          username: users.lockedOut.username,
+          password: users.lockedOut.password,
+          expectedError: 'Sorry, this user has been locked out',
         },
       ];
 
       for (const scenario of errorScenarios) {
         test(`Shows error when ${scenario.name}`, async () => {
-          if (scenario.username)
-            await loginPage.fillUsername(scenario.username);
+          if (scenario.username) await loginPage.fillUsername(scenario.username);
 
-          if (scenario.password)
-            await loginPage.fillPassword(scenario.password);
+          if (scenario.password) await loginPage.fillPassword(scenario.password);
 
           await loginPage.submit();
 
-          await expect(loginPage.errorMessage).toContainText(
-            scenario.expectedError,
-          );
+          await expect(loginPage.errorMessage).toContainText(scenario.expectedError);
         });
       }
     });
 
-    test("Verify user is redirected to home page after successful login", async ({
-      page,
-    }) => {
-      await loginPage.login(users.validUser);
+    test('Verify user is redirected to home page after successful login', async ({ page }) => {
+      await loginPage.login(users.standard);
       await expect(page).toHaveURL(/inventory\.html$/);
     });
   });

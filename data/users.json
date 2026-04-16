@@ -22,5 +22,9 @@
   "visual": {
     "username": "visual_user",
     "password": "secret_sauce"
+  },
+  "invalid": {
+    "username": "invalid_user",
+    "password": "invalid_password"
   }
 }
