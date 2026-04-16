@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/login-page.js";
-import { ProductsPage } from "../../pages/products-page.js";
+import { ProductsPage } from "../../pages/product-list-page.js";
 import type { ProductItemComponent } from "../../components/product-item.component.js";
 
 const VALID_USER = {
@@ -26,7 +26,7 @@ test.describe("Products Feature", () => {
     productsPage = new ProductsPage(page);
 
     await loginPage.navigate();
-    await loginPage.login(VALID_USER.username, VALID_USER.password);
+    await loginPage.login(VALID_USER);
   });
 
   test.describe("Add to Cart Functionality", () => {

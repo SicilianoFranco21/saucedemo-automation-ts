@@ -107,7 +107,7 @@ test.describe("Login Feature", () => {
     test("Verify user is redirected to home page after successful login", async ({
       page,
     }) => {
-      await loginPage.login(users.validUser.username, users.validUser.password);
+      await loginPage.login(users.validUser);
       await expect(page).toHaveURL(/inventory\.html$/);
     });
   });
