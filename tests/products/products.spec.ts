@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/login-page.js";
-import { ProductsPage } from "../../pages/product-list-page.js";
+import { ProductListPage } from "../../pages/product-list-page.js";
 import type { ProductItemComponent } from "../../components/product-item.component.js";
 
 const VALID_USER = {
@@ -19,11 +19,11 @@ const PRODUCT_NAMES: string[] = [
 
 test.describe("Products Feature", () => {
   let loginPage: LoginPage;
-  let productsPage: ProductsPage;
+  let productListPage: ProductListPage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    productsPage = new ProductsPage(page);
+    productListPage = new ProductListPage(page);
 
     await loginPage.navigate();
     await loginPage.login(VALID_USER);
@@ -33,9 +33,9 @@ test.describe("Products Feature", () => {
     for (const name of PRODUCT_NAMES) {
       test(`Verify that a logged-in user can add product "${name}" to the cart and the cart badge is updated accordingly`, async () => {
         const product: ProductItemComponent =
-          productsPage.getProductByName(name);
+          productListPage.productList.getProductByName(name);
         await product.addToCart();
-        await expect(productsPage.header.cartItemsCount()).resolves.toBe(1);
+        await expect(productListPage.header.cartItemsCount()).resolves.toBe(1);
         await expect(product.removeButton).toBeEnabled();
       });
     }
@@ -44,10 +44,10 @@ test.describe("Products Feature", () => {
   test.describe("Remove Product Functionality", () => {
     test("Verify that a logged-in user can remove a product from the cart and that the cart badge reflects the updated item count", async () => {
       for (const name of PRODUCT_NAMES) {
-        await productsPage.getProductByName(name).addToCart();
+        await productListPage.productList.getProductByName(name).addToCart();
       }
 
-      await expect(productsPage.header.cartItemsCount()).resolves.toBe(
+      await expect(productListPage.header.cartItemsCount()).resolves.toBe(
         PRODUCT_NAMES.length,
       );
 
@@ -55,12 +55,12 @@ test.describe("Products Feature", () => {
 
       for (const name of PRODUCT_NAMES) {
         const product: ProductItemComponent =
-          productsPage.getProductByName(name);
+          productListPage.productList.getProductByName(name);
 
         await product.removeFromCart();
         expectedCount -= 1;
 
-        await expect(productsPage.header.cartItemsCount()).resolves.toBe(
+        await expect(productListPage.header.cartItemsCount()).resolves.toBe(
           expectedCount,
         );
         await expect(product.addToCartButton).toBeEnabled();
