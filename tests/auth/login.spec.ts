@@ -39,7 +39,7 @@ test.describe('Login Feature', () => {
       }
     });
   });
-
+  
   test.describe('Login - Authentication', () => {
     test.describe('Login - Negative Authentication', () => {
       const errorScenarios = [
@@ -82,7 +82,7 @@ test.describe('Login Feature', () => {
       }
     });
 
-    test('Verify user is redirected to home page after successful login', async ({ page }) => {
+    test('@smoke Login - Positive Authentication', async ({ page }) => {
       await loginPage.login(users.standard);
       await expect(page).toHaveURL(/inventory\.html$/);
     });
