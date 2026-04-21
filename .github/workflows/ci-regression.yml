@@ -1,4 +1,4 @@
-name: CI Smoke Test
+name: CI Regression Test
 
 on: 
   push:
@@ -26,7 +26,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Smoke Tests
-        run: npx playwright test --grep '@smoke'
+        run: npx playwright test --grep '@regression'
 
       - name: Upload Playwright Report
         if: always()
