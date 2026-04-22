@@ -27,7 +27,7 @@ export class FooterComponent {
     await this.linkedinLink.click();
   }
 
-  async footerCopy(): Promise<string | null> {
-    return await this.footerText.textContent();
+  async footerCopy(): Promise<string> {
+    return await this.footerText.innerText();
   }
 }

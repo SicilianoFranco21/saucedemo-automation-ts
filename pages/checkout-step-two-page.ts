@@ -4,7 +4,7 @@ import { ProductListComponent } from '../components/product-list.component.js';
 
 export class CheckoutStepTwoPage extends SauceDemoBasePage {
   readonly url: string = '/checkout-step-two.html';
-  readonly productList: ProductListComponent
+  readonly productList: ProductListComponent;
   readonly cancelButton: Locator;
   readonly finishButton: Locator;
   readonly paymentInformationValue: Locator;

@@ -3,7 +3,7 @@ import { ProductItemComponent } from '../components/product-item.component.js';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
 
 export class ProductPage extends SauceDemoBasePage {
-  readonly url: string = '/inventory-item.html'; // baseUrl for each specific product page
+  readonly url: string = '/inventory-item.html';
   readonly productItem: ProductItemComponent;
   readonly backToProductsButton: Locator;
 

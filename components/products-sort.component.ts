@@ -1,12 +1,10 @@
 import type { Page, Locator } from '@playwright/test';
 
 export class ProductsSortComponent {
-  readonly root: Locator;
   readonly sortDropdown: Locator;
 
   constructor(page: Page) {
-    this.root = page.locator('.right_component');
-    this.sortDropdown = this.root.getByTestId('product-sort-container');
+    this.sortDropdown = page.getByTestId('product-sort-container');
   }
 
   private async getCurrentSortValue(): Promise<string | null> {

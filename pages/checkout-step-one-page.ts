@@ -27,9 +27,9 @@ export class CheckoutStepOnePage extends SauceDemoBasePage {
   }
 
   async fillCheckoutForm(
-    firstName?: string | undefined,
-    lastName?: string | undefined,
-    postalCode?: string | undefined
+    firstName?: string,
+    lastName?: string,
+    postalCode?: string
   ): Promise<void> {
     if (firstName !== undefined) {
       await this.firstNameInput.fill(firstName);

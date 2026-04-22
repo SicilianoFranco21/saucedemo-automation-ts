@@ -23,11 +23,7 @@ export class HeaderComponent {
     await this.cartLink.click();
   }
 
-  async cartItemsCount(): Promise<number> {
-    if ((await this.cartCountBadge.count()) === 0) {
-      return 0;
-    }
-    const text: string | null = await this.cartCountBadge.textContent();
-    return Number(text);
+  async cartItemsCount(): Promise<string | null> {
+    return await this.cartCountBadge.textContent();
   }
 }

@@ -20,11 +20,11 @@ export class ProductItemComponent {
   }
 
   get addToCartButton(): Locator {
-    return this.root.locator('button', { hasText: 'Add to cart' });
+    return this.root.locator('[data-test^="add-to-cart"]');
   }
 
   get removeButton(): Locator {
-    return this.root.locator('button', { hasText: 'Remove' });
+    return this.root.locator('[data-test^="remove"]');
   }
 
   async addToCart(): Promise<void> {
