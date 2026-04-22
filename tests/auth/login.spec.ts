@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login-page.js';
-import  users from '../../data/users.json' with { type: 'json' };
+import users from '../../data/users.json' with { type: 'json' };
 
-test.describe('Login Feature', () => {
+test.describe('Login', () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
@@ -10,27 +10,27 @@ test.describe('Login Feature', () => {
     await loginPage.navigate();
   });
 
-  test.describe('Login - Form UI elements', () => {
-    test('Verify username field is displayed and editable', async () => {
+  test.describe('Form elements', () => {
+    test('should accept input in the username field', async () => {
       await loginPage.fillUsername(users.standard.username);
       await expect(loginPage.usernameInput).toHaveValue(users.standard.username);
     });
 
-    test('Verify password field is displayed and editable', async () => {
+    test('should accept input in the password field', async () => {
       await loginPage.fillPassword(users.standard.password);
       await expect(loginPage.passwordInput).toHaveValue(users.standard.password);
     });
 
-    test.describe('Verify submit button state validation', () => {
+    test.describe('submit button', () => {
       const states = [
-        ['both empty', '', ''],
-        ['only username', users.standard.username, ''],
-        ['only password', '', users.standard.password],
-        ['both filled', users.standard.username, users.standard.password],
+        ['fields are empty', '', ''],
+        ['only username is filled', users.standard.username, ''],
+        ['only password is filled', '', users.standard.password],
+        ['both fields are filled', users.standard.username, users.standard.password],
       ];
 
       for (const [name, username, password] of states) {
-        test(`Verify submit button enabled when ${name}`, async () => {
+        test(`should be enabled when ${name}`, async () => {
           if (username) await loginPage.fillUsername(username);
           if (password) await loginPage.fillPassword(password);
 
@@ -39,50 +39,47 @@ test.describe('Login Feature', () => {
       }
     });
   });
-  
-  test.describe('Login - Authentication', () => {
-    test.describe('Login - Negative Authentication', () => {
-      const errorScenarios = [
-        {
-          name: 'username is missing',
-          username: '',
-          password: users.standard.password,
-          expectedError: 'Username is required',
-        },
-        {
-          name: 'password is missing',
-          username: users.standard.username,
-          password: '',
-          expectedError: 'Password is required',
-        },
-        {
-          name: 'credentials are invalid',
-          username: users.invalid.username,
-          password: users.invalid.password,
-          expectedError: 'Username and password do not match',
-        },
-        {
-          name: 'user account is locked',
-          username: users.lockedOut.username,
-          password: users.lockedOut.password,
-          expectedError: 'Sorry, this user has been locked out',
-        },
-      ];
 
-      for (const scenario of errorScenarios) {
-        test(`Shows error when ${scenario.name}`, async () => {
-          if (scenario.username) await loginPage.fillUsername(scenario.username);
+  test.describe('Authentication', () => {
+    const errorScenarios = [
+      {
+        name: 'username is missing',
+        username: '',
+        password: users.standard.password,
+        expectedError: 'Username is required',
+      },
+      {
+        name: 'password is missing',
+        username: users.standard.username,
+        password: '',
+        expectedError: 'Password is required',
+      },
+      {
+        name: 'credentials are invalid',
+        username: users.invalid.username,
+        password: users.invalid.password,
+        expectedError: 'Username and password do not match',
+      },
+      {
+        name: 'user is locked out',
+        username: users.lockedOut.username,
+        password: users.lockedOut.password,
+        expectedError: 'Sorry, this user has been locked out',
+      },
+    ];
 
-          if (scenario.password) await loginPage.fillPassword(scenario.password);
+    for (const scenario of errorScenarios) {
+      test(`should show an error when ${scenario.name}`, async () => {
+        if (scenario.username) await loginPage.fillUsername(scenario.username);
+        if (scenario.password) await loginPage.fillPassword(scenario.password);
 
-          await loginPage.submit();
+        await loginPage.submit();
 
-          await expect(loginPage.errorMessage).toContainText(scenario.expectedError);
-        });
-      }
-    });
+        await expect(loginPage.errorMessage).toContainText(scenario.expectedError);
+      });
+    }
 
-    test('@smoke Login - Positive Authentication', async ({ page }) => {
+    test('should redirect to inventory with valid credentials', async ({ page }) => {
       await loginPage.login(users.standard);
       await expect(page).toHaveURL(/inventory\.html$/);
     });
