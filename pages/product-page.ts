@@ -1,5 +1,5 @@
 import type { Page, Locator } from '@playwright/test';
-import { ProductItemComponent } from '../components/product-item.component.js';
+import { ProductItemComponent } from './components/product-item.component.js';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
 
 export class ProductPage extends SauceDemoBasePage {

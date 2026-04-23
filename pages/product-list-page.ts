@@ -1,7 +1,7 @@
 import type { Page, Locator } from '@playwright/test';
-import { ProductsSortComponent } from '../components/products-sort.component.js';
+import { ProductsSortComponent } from './components/products-sort.component.js';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
-import { ProductListComponent } from '../components/product-list.component.js';
+import { ProductListComponent } from './components/product-list.component.js';
 
 export class ProductListPage extends SauceDemoBasePage {
   readonly url: string = '/inventory.html';

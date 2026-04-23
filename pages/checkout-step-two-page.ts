@@ -1,6 +1,6 @@
 import type { Page, Locator } from '@playwright/test';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
-import { ProductListComponent } from '../components/product-list.component.js';
+import { ProductListComponent } from './components/product-list.component.js';
 
 export class CheckoutStepTwoPage extends SauceDemoBasePage {
   readonly url: string = '/checkout-step-two.html';

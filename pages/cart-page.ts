@@ -1,6 +1,6 @@
 import type { Page, Locator } from '@playwright/test';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
-import { ProductListComponent } from '../components/product-list.component.js';
+import { ProductListComponent } from './components/product-list.component.js';
 
 export class CartPage extends SauceDemoBasePage {
   readonly url: string = '/cart.html';

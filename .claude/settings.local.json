@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Microsoft_Learn__microsoft_docs_fetch",
+      "mcp__claude_ai_Microsoft_Learn__microsoft_code_sample_search",
+      "mcp__claude_ai_Microsoft_Learn__microsoft_docs_search"
+    ]
+  }
+}

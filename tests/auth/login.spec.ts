@@ -1,22 +1,14 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/login-page.js';
+import { test, expect } from '../../fixtures/fixtures.js';
 import users from '../../data/users.json' with { type: 'json' };
 
 test.describe('Login', () => {
-  let loginPage: LoginPage;
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.navigate();
-  });
-
   test.describe('Form elements', () => {
-    test('should accept input in the username field', async () => {
+    test('should accept input in the username field', async ({ loginPage }) => {
       await loginPage.fillUsername(users.standard.username);
       await expect(loginPage.usernameInput).toHaveValue(users.standard.username);
     });
 
-    test('should accept input in the password field', async () => {
+    test('should accept input in the password field', async ({ loginPage }) => {
       await loginPage.fillPassword(users.standard.password);
       await expect(loginPage.passwordInput).toHaveValue(users.standard.password);
     });
@@ -30,7 +22,7 @@ test.describe('Login', () => {
       ];
 
       for (const [name, username, password] of states) {
-        test(`should be enabled when ${name}`, async () => {
+        test(`should be enabled when ${name}`, async ({ loginPage }) => {
           if (username) await loginPage.fillUsername(username);
           if (password) await loginPage.fillPassword(password);
 
@@ -69,7 +61,7 @@ test.describe('Login', () => {
     ];
 
     for (const scenario of errorScenarios) {
-      test(`should show an error when ${scenario.name}`, async () => {
+      test(`should show an error when ${scenario.name}`, { tag: '@regression' }, async ({ loginPage }) => {
         if (scenario.username) await loginPage.fillUsername(scenario.username);
         if (scenario.password) await loginPage.fillPassword(scenario.password);
 
@@ -79,7 +71,7 @@ test.describe('Login', () => {
       });
     }
 
-    test('should redirect to inventory with valid credentials', async ({ page }) => {
+    test('should redirect to inventory with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ loginPage, page }) => {
       await loginPage.login(users.standard);
       await expect(page).toHaveURL(/inventory\.html$/);
     });

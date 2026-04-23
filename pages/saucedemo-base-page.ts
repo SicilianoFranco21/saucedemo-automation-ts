@@ -1,9 +1,9 @@
 import type { Page } from '@playwright/test';
 import { BasePage } from './base-page.js';
-import { HeaderComponent } from '../components/header.component.js';
-import { SecondaryHeaderComponent } from '../components/secondary-header.component.js';
-import { SideMenuComponent } from '../components/side-menu.component.js';
-import { FooterComponent } from '../components/footer.component.js';
+import { HeaderComponent } from './components/header.component.js';
+import { SecondaryHeaderComponent } from './components/secondary-header.component.js';
+import { SideMenuComponent } from './components/side-menu.component.js';
+import { FooterComponent } from './components/footer.component.js';
 
 export abstract class SauceDemoBasePage extends BasePage {
   readonly header: HeaderComponent;
