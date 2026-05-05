@@ -3,7 +3,7 @@ import { ProductsSortComponent } from './components/products-sort.component.js';
 import { SauceDemoBasePage } from './saucedemo-base-page.js';
 import { ProductListComponent } from './components/product-list.component.js';
 
-export class ProductListPage extends SauceDemoBasePage {
+export class InventoryPage extends SauceDemoBasePage {
   readonly url: string = '/inventory.html';
   readonly productsSort: ProductsSortComponent;
   readonly productList: ProductListComponent;
