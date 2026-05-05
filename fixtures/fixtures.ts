@@ -1,19 +1,19 @@
 import { test as base, type Page } from '@playwright/test';
 import { LoginPage } from '../pages/login-page.js';
-import { ProductListPage } from '../pages/product-list-page.js';
+import { InventoryPage } from '../pages/inventory-page.js';
 import { CartPage } from '../pages/cart-page.js';
 import { CheckoutStepOnePage } from '../pages/checkout-step-one-page.js';
 import users from '../data/users.json' with { type: 'json' };
 
-type MyFixtures = {
+type SauceDemoFixtures = {
   loginPage: LoginPage;
   authenticatedPage: Page;
-  productListPage: ProductListPage;
+  inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutStepOnePage: CheckoutStepOnePage;
 };
 
-export const test = base.extend<MyFixtures>({
+export const test = base.extend<SauceDemoFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
@@ -27,21 +27,18 @@ export const test = base.extend<MyFixtures>({
     await use(page);
   },
 
-  productListPage: async ({ authenticatedPage }, use) => {
-    const productListPage = new ProductListPage(authenticatedPage);
-    await productListPage.navigate();
-    await use(productListPage);
+  inventoryPage: async ({ authenticatedPage }, use) => {
+    const inventoryPage = new InventoryPage(authenticatedPage);
+    await use(inventoryPage);
   },
 
   cartPage: async ({ authenticatedPage }, use) => {
     const cartPage = new CartPage(authenticatedPage);
-    await cartPage.navigate();
     await use(cartPage);
   },
 
   checkoutStepOnePage: async ({ authenticatedPage }, use) => {
     const checkoutStepOnePage = new CheckoutStepOnePage(authenticatedPage);
-    await checkoutStepOnePage.navigate();
     await use(checkoutStepOnePage);
   },
 });
