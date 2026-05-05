@@ -9,17 +9,14 @@ export class ProductListComponent {
     this.root = root;
     this.products = root.getByTestId('inventory-item');
   }
+  
+  private findProductLocatorByName(name: string): Locator {
+    return this.products.filter({ hasText: name });
+  }
 
   getProductByName(name: string): ProductItemComponent {
     const productLocator: Locator = this.findProductLocatorByName(name);
     return new ProductItemComponent(productLocator);
-  }
-
-  findProductLocatorByName(name: string): Locator {
-    const productLocator: Locator = this.products.filter({
-      has: this.root.getByTestId('inventory-item-name').filter({ hasText: name }),
-    });
-    return productLocator;
   }
 
   async getAllProducts(): Promise<ProductItemComponent[]> {
