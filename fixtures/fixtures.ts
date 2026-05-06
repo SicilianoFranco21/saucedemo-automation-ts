@@ -3,6 +3,8 @@ import { LoginPage } from '../pages/login-page.js';
 import { InventoryPage } from '../pages/inventory-page.js';
 import { CartPage } from '../pages/cart-page.js';
 import { CheckoutStepOnePage } from '../pages/checkout-step-one-page.js';
+import { CheckoutStepTwoPage } from '../pages/checkout-step-two-page.js';
+import { CheckoutCompletePage } from '../pages/checkout-complete-page.js';
 import users from '../data/users.json' with { type: 'json' };
 
 type SauceDemoFixtures = {
@@ -11,6 +13,8 @@ type SauceDemoFixtures = {
   inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutStepOnePage: CheckoutStepOnePage;
+  checkoutStepTwoPage: CheckoutStepTwoPage;
+  checkoutCompletePage: CheckoutCompletePage;
 };
 
 export const test = base.extend<SauceDemoFixtures>({
@@ -40,6 +44,16 @@ export const test = base.extend<SauceDemoFixtures>({
   checkoutStepOnePage: async ({ authenticatedPage }, use) => {
     const checkoutStepOnePage = new CheckoutStepOnePage(authenticatedPage);
     await use(checkoutStepOnePage);
+  },
+
+  checkoutStepTwoPage: async ({ authenticatedPage }, use) => {
+    const checkoutStepTwoPage = new CheckoutStepTwoPage(authenticatedPage);
+    await use(checkoutStepTwoPage);
+  },
+
+    checkoutCompletePage: async ({ authenticatedPage }, use) => {
+    const checkoutCompletePage = new CheckoutCompletePage(authenticatedPage);
+    await use(checkoutCompletePage);
   },
 });
 
