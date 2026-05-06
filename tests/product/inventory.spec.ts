@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/fixtures.js';
-import productsData from '../../data/products.json' with { type: 'json' };
 import { addProducts } from '../../helpers/inventory.helper.js';
 import type { ProductItemComponent } from '../../pages/components/product-item.component.js';
+import productsData from '../../data/products.json' with { type: 'json' };
 
 // Feature: Inventory
 
