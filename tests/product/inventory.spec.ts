@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/fixtures.js';
 import productsData from '../../data/products.json' with { type: 'json' };
+import type { ProductItemComponent } from '../../pages/components/product-item.component.js';
 
 const PRODUCT_NAMES = Object.values(productsData.products).map((p) => p.name);
 
@@ -9,7 +10,7 @@ test.describe('Products', () => {
 
     for (const name of PRODUCT_NAMES) {
       test(`should add "${name}" to cart and update badge`, async ({ inventoryPage }) => {
-        const product = inventoryPage.productList.getProductByName(name);
+        const product: ProductItemComponent = inventoryPage.productList.getProductByName(name);
         
         // WHEN
         await product.addToCart();
@@ -26,7 +27,7 @@ test.describe('Products', () => {
 
     for (const name of PRODUCT_NAMES) {
       test(`should remove "${name}" from cart and update badge`, async ({ inventoryPage }) => {
-        const product = inventoryPage.productList.getProductByName(name);
+        const product: ProductItemComponent = inventoryPage.productList.getProductByName(name);
 
         // WHEN
         await product.addToCart();
