@@ -1,39 +1,63 @@
 import { test, expect } from '../../fixtures/fixtures.js';
 import productsData from '../../data/products.json' with { type: 'json' };
+import { addProducts } from '../../helpers/inventory.helper.js';
 import type { ProductItemComponent } from '../../pages/components/product-item.component.js';
+
+// Feature: Inventory
 
 const PRODUCT_NAMES = Object.values(productsData.products).map((p) => p.name);
 
 test.describe('Products', () => {
-  test.describe('Add to Cart', () => {
-    // GIVEN: inventoryPage fxiture navigates to the inventory page before each test
+  // Rule: Cart badge reflects the number of products added
 
+  test('updates the cart badge after adding all products', async ({ inventoryPage }) => {
+    // Given the user is on the inventory page (inventoryPage fixture)
+    // And the inventory contains N products
+    const totalProducts: number = await inventoryPage.productList.getCount();
+
+    // When the user adds all products to the cart
+    await addProducts(inventoryPage, PRODUCT_NAMES);
+
+    // Then the cart badge shows the total number of added products
+    await expect(inventoryPage.header.cartItemsCount()).resolves.toBe(String(totalProducts));
+  });
+
+  // Rule: Products can be added to the cart individually
+  test.describe('Add to Cart', () => {
+    // Background:
+    //   Given the user is on the inventory page
+
+    // Scenario Outline: adds <product> to the cart
     for (const name of PRODUCT_NAMES) {
-      test(`should add "${name}" to cart and update badge`, async ({ inventoryPage }) => {
+      test(`adds "${name}" to the cart and updates the badge`, async ({ inventoryPage }) => {
         const product: ProductItemComponent = inventoryPage.productList.getProductByName(name);
-        
-        // WHEN
+
+        // When the user adds the product to the cart
         await product.addToCart();
 
-        // THEN
+        // Then the cart badge shows 1 and the remove button is enabled
         await expect(inventoryPage.header.cartItemsCount()).resolves.toBe('1');
         await expect(product.removeButton).toBeEnabled();
       });
     }
   });
 
+  // Rule: Products can be removed from the cart individually
   test.describe('Remove from Cart', () => {
-    // GIVEN: inventoryPage fixture navigates to the inventory page before each test 
+    // Background:
+    //   Given the user is on the inventory page
+    //   And the product has been added to the cart
 
+    // Scenario Outline: removes <product> from the cart
     for (const name of PRODUCT_NAMES) {
-      test(`should remove "${name}" from cart and update badge`, async ({ inventoryPage }) => {
+      test(`removes "${name}" from the cart and updates the badge`, async ({ inventoryPage }) => {
         const product: ProductItemComponent = inventoryPage.productList.getProductByName(name);
-
-        // WHEN
         await product.addToCart();
+
+        // When the user removes the product from the cart
         await product.removeFromCart();
 
-        // THEN
+        // Then the cart badge is not visible and the add to cart button is enabled
         await expect(inventoryPage.header.cartCountBadge).not.toBeVisible();
         await expect(product.addToCartButton).toBeEnabled();
       });
