@@ -1,38 +1,57 @@
 import { test, expect } from '../../fixtures/fixtures.js';
 import users from '../../data/users.json' with { type: 'json' };
 
+// Feature: Login
+
 test.describe('Login', () => {
+  // Rule: Form inputs accept user data
   test.describe('Form elements', () => {
-    test('should accept input in the username field', async ({ loginPage }) => {
+    // Background:
+    //   Given the user is on the login page
+
+    test('accepts input in the username field', async ({ loginPage }) => {
+      // When the user types in the username field
       await loginPage.fillUsername(users.standard.username);
+
+      // Then the username field displays the typed text
       await expect(loginPage.usernameInput).toHaveValue(users.standard.username);
     });
 
-    test('should accept input in the password field', async ({ loginPage }) => {
+    test('accepts input in the password field', async ({ loginPage }) => {
+      // When the user types in the password field
       await loginPage.fillPassword(users.standard.password);
+
+      // Then the password field displays the typed text
       await expect(loginPage.passwordInput).toHaveValue(users.standard.password);
     });
 
-    test.describe('submit button', () => {
+    test.describe('Login button', () => {
       const states = [
-        ['fields are empty', '', ''],
-        ['only username is filled', users.standard.username, ''],
-        ['only password is filled', '', users.standard.password],
-        ['both fields are filled', users.standard.username, users.standard.password],
+        { name: 'fields are empty', username: '', password: '' },
+        { name: 'only username is filled', username: users.standard.username, password: '' },
+        { name: 'only password is filled', username: '', password: users.standard.password },
+        { name: 'both fields are filled', username: users.standard.username, password: users.standard.password },
       ];
 
-      for (const [name, username, password] of states) {
-        test(`should be enabled when ${name}`, async ({ loginPage }) => {
-          if (username) await loginPage.fillUsername(username);
-          if (password) await loginPage.fillPassword(password);
+      // Scenario Outline: login button is enabled regardless of field state
+      for (const state of states) {
+        test(`is enabled when ${state.name}`, async ({ loginPage }) => {
+          // When the user fills the fields
+          if (state.username) await loginPage.fillUsername(state.username);
+          if (state.password) await loginPage.fillPassword(state.password);
 
+          // Then the login button is enabled
           await expect(loginPage.loginButton).toBeEnabled();
         });
       }
     });
   });
 
+  // Rule: Authentication validates credentials before granting access
   test.describe('Authentication', () => {
+    // Background:
+    //   Given the user is on the login page
+
     const errorScenarios = [
       {
         name: 'username is missing',
@@ -60,19 +79,24 @@ test.describe('Login', () => {
       },
     ];
 
+    // Scenario Outline: login fails with various invalid credential combinations
     for (const scenario of errorScenarios) {
-      test(`should show an error when ${scenario.name}`, { tag: '@regression' }, async ({ loginPage }) => {
+      test(`shows an error when ${scenario.name}`, async ({ loginPage }) => {
+        // When the user submits the form with invalid credentials
         if (scenario.username) await loginPage.fillUsername(scenario.username);
         if (scenario.password) await loginPage.fillPassword(scenario.password);
-
         await loginPage.submit();
 
+        // Then an error message is displayed
         await expect(loginPage.errorMessage).toContainText(scenario.expectedError);
       });
     }
 
-    test('should redirect to inventory with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ loginPage, page }) => {
+    test('redirects to the inventory page with valid credentials', async ({ loginPage, page }) => {
+      // When the user logs in with valid credentials
       await loginPage.login(users.standard);
+
+      // Then the user is redirected to the inventory page
       await expect(page).toHaveURL(/inventory\.html$/);
     });
   });
