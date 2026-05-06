@@ -29,6 +29,10 @@ export class ProductListComponent {
     return productComponents;
   }
 
+  async getCount(): Promise<number> {
+    return this.products.count();
+  }
+
   async openProductByName(name: string): Promise<void> {
     await this.getProductByName(name).open();
   }
