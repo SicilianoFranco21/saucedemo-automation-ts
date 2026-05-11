@@ -3,6 +3,9 @@ import users from '../../data/users.json' with { type: 'json' };
 
 // Feature: Login
 
+type LoginButtonState = { name: string; username: string; password: string };
+type ErrorScenario = { name: string; username: string; password: string; expectedError: string };
+
 test.describe('Login', () => {
   // Rule: Form inputs accept user data
   test.describe('Form elements', () => {
@@ -26,7 +29,7 @@ test.describe('Login', () => {
     });
 
     test.describe('Login button', () => {
-      const states = [
+      const states: LoginButtonState[] = [
         { name: 'fields are empty', username: '', password: '' },
         { name: 'only username is filled', username: users.standard.username, password: '' },
         { name: 'only password is filled', username: '', password: users.standard.password },
@@ -52,7 +55,7 @@ test.describe('Login', () => {
     // Background:
     //   Given the user is on the login page
 
-    const errorScenarios = [
+    const errorScenarios: ErrorScenario[] = [
       {
         name: 'username is missing',
         username: '',

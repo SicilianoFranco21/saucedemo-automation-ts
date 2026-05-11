@@ -22,7 +22,7 @@ test.describe('Logout', () => {
   // | checkout complete     |
 
   test('logs out from the inventory page', async ({ inventoryPage }) => {
-    // Given the user is on the inventory page (inventoryPage fixture)
+    // Given the user is on the inventory page
 
     // When the user opens the menu and logs out
     await logout(inventoryPage);
@@ -35,10 +35,10 @@ test.describe('Logout', () => {
     // Given the user is on the cart page
     await cartPage.navigate();
 
-    // When
+    // When the user opens the menu and logs out
     await logout(cartPage);
 
-    // Then
+    // Then the user is redirected to the login page
     await expect(cartPage.page).toHaveURL(/\/$/);
   });
 
@@ -46,10 +46,10 @@ test.describe('Logout', () => {
     // Given the user is on the checkout step one page
     await checkoutStepOnePage.navigate();
 
-    // When
+    // When the user opens the menu and logs out
     await logout(checkoutStepOnePage);
 
-    // Then
+    // Then the user is redirected to the login page
     await expect(checkoutStepOnePage.page).toHaveURL(/\/$/);
   });
 
@@ -57,10 +57,10 @@ test.describe('Logout', () => {
     // Given the user is on the checkout step two page
     await checkoutStepTwoPage.navigate();
 
-    // When
+    // When the user opens the menu and logs out
     await logout(checkoutStepTwoPage);
 
-    // Then
+    // Then the user is redirected to the login page
     await expect(checkoutStepTwoPage.page).toHaveURL(/\/$/);
   });
 
@@ -68,10 +68,10 @@ test.describe('Logout', () => {
     // Given the user is on the checkout complete page
     await checkoutCompletePage.navigate();
 
-    // When
+    // When the user opens the menu and logs out
     await logout(checkoutCompletePage);
 
-    // Then
+    // Then the user is redirected to the login page
     await expect(checkoutCompletePage.page).toHaveURL(/\/$/);
   });
 });

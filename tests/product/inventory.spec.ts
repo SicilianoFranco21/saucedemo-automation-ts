@@ -1,11 +1,12 @@
 import { test, expect } from '../../fixtures/fixtures.js';
 import { addProducts } from '../../helpers/inventory.helper.js';
 import type { ProductItemComponent } from '../../pages/components/product-item.component.js';
+import type { Product } from '../../models/product.model.js';
 import productsData from '../../data/products.json' with { type: 'json' };
 
 // Feature: Inventory
 
-const PRODUCT_NAMES = Object.values(productsData.products).map((p) => p.name);
+const PRODUCT_NAMES: string[] = Object.values(productsData.products).map((p: Product) => p.name);
 
 test.describe('Products', () => {
   // Rule: Cart badge reflects the number of products added

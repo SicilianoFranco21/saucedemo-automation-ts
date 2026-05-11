@@ -1,10 +1,11 @@
 import { test, expect } from '../../fixtures/fixtures.js';
 import { ProductPage } from '../../pages/product-page.js';
+import type { Product } from '../../models/product.model.js';
 import productsData from '../../data/products.json' with { type: 'json' };
 
 // Feature: Product details
 
-const PRODUCTS = Object.values(productsData.products);
+const PRODUCTS: Product[] = Object.values(productsData.products);
 
 test.describe('Product details', () => {
   // Rule: Product detail page displays correct information for each product
