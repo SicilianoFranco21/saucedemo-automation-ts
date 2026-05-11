@@ -7,7 +7,7 @@ import productsData from '../../data/products.json' with { type: 'json' };
 
 const PRODUCTS: Product[] = Object.values(productsData.products);
 
-test.describe('Product details', () => {
+test.describe('Product details', { tag: '@regression' }, () => {
   // Rule: Product detail page displays correct information for each product
 
   for (const product of PRODUCTS) {

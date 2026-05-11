@@ -9,10 +9,10 @@ import type { ProductItemComponent } from '../../pages/components/product-item.c
 
 const PRODUCT_NAMES: string[] = Object.values(productsData.products).map((p: Product) => p.name);
 
-test.describe('Cart', () => {
+test.describe('Cart', { tag: '@regression' }, () => {
   // Rule: Cart displays the products added from inventory
 
-  test.describe('View Cart', () => {
+  test.describe('View Cart', { tag: '@smoke' }, () => {
     // Background:
     //   Given the user is on the inventory page
     //   And has added all products to the cart
@@ -37,7 +37,7 @@ test.describe('Cart', () => {
 
   // Rule: Products can be removed from the cart individually
 
-  test.describe('Remove from Cart', () => {
+  test.describe('Remove from Cart', { tag: '@smoke' }, () => {
     // Background:
     //   Given the user is on the inventory page
     //   And the product has been added to the cart

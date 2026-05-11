@@ -8,7 +8,7 @@ async function logout(pageObject: SauceDemoBasePage): Promise<void> {
   await pageObject.sideMenu.logout();
 }
 
-test.describe('Logout', () => {
+test.describe('Logout', { tag: '@regression' }, () => {
   // Rule: User can log out from any authenticated page
   // Background:
   //   Given the user is logged in

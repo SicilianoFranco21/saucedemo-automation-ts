@@ -6,7 +6,7 @@ import users from '../../data/users.json' with { type: 'json' };
 type LoginButtonState = { name: string; username: string; password: string };
 type ErrorScenario = { name: string; username: string; password: string; expectedError: string };
 
-test.describe('Login', () => {
+test.describe('Login', { tag: '@regression' }, () => {
   // Rule: Form inputs accept user data
   test.describe('Form elements', () => {
     // Background:
@@ -51,7 +51,7 @@ test.describe('Login', () => {
   });
 
   // Rule: Authentication validates credentials before granting access
-  test.describe('Authentication', () => {
+  test.describe('Authentication', { tag: '@smoke' }, () => {
     // Background:
     //   Given the user is on the login page
 

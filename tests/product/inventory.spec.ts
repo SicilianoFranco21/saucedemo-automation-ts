@@ -8,7 +8,7 @@ import productsData from '../../data/products.json' with { type: 'json' };
 
 const PRODUCT_NAMES: string[] = Object.values(productsData.products).map((p: Product) => p.name);
 
-test.describe('Products', () => {
+test.describe('Products', { tag: '@regression' }, () => {
   // Rule: Cart badge reflects the number of products added
 
   test('updates the cart badge after adding all products', async ({ inventoryPage }) => {
@@ -24,7 +24,7 @@ test.describe('Products', () => {
   });
 
   // Rule: Products can be added to the cart individually
-  test.describe('Add to Cart', () => {
+  test.describe('Add to Cart', { tag: '@smoke' }, () => {
     // Background:
     //   Given the user is on the inventory page
 
@@ -44,7 +44,7 @@ test.describe('Products', () => {
   });
 
   // Rule: Products can be removed from the cart individually
-  test.describe('Remove from Cart', () => {
+  test.describe('Remove from Cart', { tag: '@smoke' }, () => {
     // Background:
     //   Given the user is on the inventory page
     //   And the product has been added to the cart
