@@ -1,5 +1,4 @@
 import { test, expect } from '../../fixtures/fixtures.js';
-import { ProductPage } from '../../pages/product-page.js';
 import type { Product } from '../../models/product.model.js';
 import productsData from '../../data/products.json' with { type: 'json' };
 
@@ -12,18 +11,15 @@ test.describe('Product details', { tag: '@regression' }, () => {
 
   for (const product of PRODUCTS) {
     test.describe(`"${product.name}"`, () => {
-      let productPage: ProductPage;
-
       // Background:
       //   Given the user is on the inventory page
       //   And the user opens the product detail page
       test.beforeEach(async ({ inventoryPage }) => {
         await inventoryPage.productList.openProductByName(product.name);
-        productPage = new ProductPage(inventoryPage.page);
       });
 
       // Scenario: displays correct product details
-      test('displays correct details', async () => {
+      test('displays correct details', async ({ productPage }) => {
         // Then the correct product detail page is displayed with the expected data
         await expect(productPage.page).toHaveURL(new RegExp(`inventory-item\\.html\\?id=${product.id}`));
         await expect(productPage.productItem.title).toHaveText(product.name);
@@ -32,7 +28,7 @@ test.describe('Product details', { tag: '@regression' }, () => {
       });
 
       // Scenario: adds product to the cart
-      test('adds to the cart from the product details page', async () => {
+      test('adds to the cart from the product details page', async ({ productPage }) => {
         // When the user adds the product to the cart
         await productPage.productItem.addToCart();
 
@@ -42,7 +38,7 @@ test.describe('Product details', { tag: '@regression' }, () => {
       });
 
       // Scenario: removes product from the cart
-      test('removes from the cart from the product details page', async () => {
+      test('removes from the cart from the product details page', async ({ productPage }) => {
         // Given the user has added the product to the cart
         await productPage.productItem.addToCart();
 

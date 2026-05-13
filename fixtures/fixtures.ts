@@ -5,6 +5,7 @@ import { CartPage } from '../pages/cart-page.js';
 import { CheckoutStepOnePage } from '../pages/checkout-step-one-page.js';
 import { CheckoutStepTwoPage } from '../pages/checkout-step-two-page.js';
 import { CheckoutCompletePage } from '../pages/checkout-complete-page.js';
+import { ProductPage } from '../pages/product-page.js';
 import users from '../data/users.json' with { type: 'json' };
 
 type SauceDemoFixtures = {
@@ -15,6 +16,7 @@ type SauceDemoFixtures = {
   checkoutStepOnePage: CheckoutStepOnePage;
   checkoutStepTwoPage: CheckoutStepTwoPage;
   checkoutCompletePage: CheckoutCompletePage;
+  productPage: ProductPage;
 };
 
 export const test = base.extend<SauceDemoFixtures>({
@@ -54,6 +56,11 @@ export const test = base.extend<SauceDemoFixtures>({
     checkoutCompletePage: async ({ authenticatedPage }, use) => {
     const checkoutCompletePage = new CheckoutCompletePage(authenticatedPage);
     await use(checkoutCompletePage);
+  },
+
+  productPage: async ({ authenticatedPage }, use) => {
+    const productPage = new ProductPage(authenticatedPage);
+    await use(productPage);
   },
 });
 
