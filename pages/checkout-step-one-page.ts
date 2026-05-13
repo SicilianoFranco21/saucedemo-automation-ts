@@ -8,6 +8,7 @@ export class CheckoutStepOnePage extends SauceDemoBasePage {
   readonly postalCodeInput: Locator;
   readonly cancelButton: Locator;
   readonly continueButton: Locator;
+  readonly errorMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -16,6 +17,7 @@ export class CheckoutStepOnePage extends SauceDemoBasePage {
     this.postalCodeInput = page.getByTestId('postalCode');
     this.cancelButton = page.getByTestId('cancel');
     this.continueButton = page.getByTestId('continue');
+    this.errorMessage = page.getByTestId('error');
   }
 
   async cancel(): Promise<void> {
