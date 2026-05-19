@@ -169,6 +169,44 @@ A single loop over `products.json` produces 6 independent test cases. Adding a n
 | `users.json` | Login spec (valid, locked-out, invalid credential scenarios) |
 | `sample-checkout-data.json` | Checkout step one form filling |
 
+### Design Decisions
+
+#### 1. Two abstract base classes instead of one
+
+`BasePage` handles generic browser navigation (`navigate()`, `reloadPage()`, `currentUrl`). `SauceDemoBasePage` extends it and composes the four shared UI components (header, footer, side menu, secondary header).
+
+This separation follows the **Single Responsibility Principle**: `BasePage` knows nothing about Saucedemo's UI, making it reusable in any project. `SauceDemoBasePage` knows about the app's layout but not about specific page content. Each concrete page only defines what is unique to it.
+
+`LoginPage` skips `SauceDemoBasePage` entirely and extends `BasePage` directly — the login screen has no header, footer, or menu, so inheriting them would violate the **Interface Segregation Principle**.
+
+#### 2. Components receive a root `Locator`, not `Page`
+
+Every component constructor accepts a `root: Locator` that scopes all internal selectors to that container:
+
+```typescript
+// ProductListComponent works in both contexts with the same code
+new ProductListComponent(page.getByTestId('inventory-list'))  // InventoryPage
+new ProductListComponent(page.getByTestId('cart-list'))       // CartPage
+```
+
+Passing `Page` would force each component to know which page it lives on, creating tight coupling. Passing a `Locator` makes components context-agnostic — the caller decides the scope. This is the **Dependency Inversion Principle** applied at the component level.
+
+#### 3. Fixtures over `beforeEach` hooks
+
+Playwright fixtures compose declaratively: `inventoryPage` builds on `authenticatedPage`, which builds on Playwright's `page`. A `beforeEach` hook is imperative, does not compose, and leaks setup logic into every spec file.
+
+Fixtures are also lazy — only instantiated when a test actually declares them — and fully type-safe. Adding a new page fixture requires changing one file (`fixtures.ts`), not every spec.
+
+#### 4. `globalSetup` + `storageState` for authentication
+
+Performing a real UI login once and reusing the saved session state across all tests avoids two failure modes: slow suites (N tests × login time) and flaky suites (N tests × login risk). The session is stored in `playwright/.auth/user.json` and injected via `storageState` in `playwright.config.ts`.
+
+Login tests opt out explicitly with `test.use({ storageState: undefined })`, keeping authentication concerns isolated from functional test concerns.
+
+#### 5. `data-test` attributes as the sole selector strategy
+
+CSS classes change with redesigns. Text content changes with copy updates or localization. XPath breaks with DOM restructuring. `data-test` attributes exist for one purpose — testing — and are stable across all of the above. Configuring `testIdAttribute: 'data-test'` in `playwright.config.ts` enforces this at the framework level, so `page.getByTestId()` always resolves to the right attribute without per-file configuration.
+
 ---
 
 ## Test Coverage
