@@ -149,15 +149,25 @@ test (Playwright base)
 
 `global-setup.ts` runs **once** before the entire suite. It performs a real UI login, saves the browser storage state to `playwright/.auth/user.json`, and all subsequent tests reuse that session — avoiding redundant login cycles. Tests in `login.spec.ts` override this with `test.use({ storageState: undefined })` to test the login form itself.
 
-### Test Data Strategy
+### Test Data Strategy — Data-Driven Testing
 
-Test data lives in `data/*.json` and is imported as typed objects via TypeScript models. This allows parametrized tests to iterate over all products or users without hardcoding values:
+The suite applies the **Data-Driven Testing (DDT)** technique: test logic is written once and executed multiple times against different input sets, separating *what to test* from *how to test it*.
+
+Test data lives in `data/*.json` and is imported as typed objects via TypeScript models. Tests iterate over that data at runtime, generating one test case per entry — no hardcoded values, no copy-pasted test blocks:
 
 ```typescript
 for (const product of products) {
   test(`displays details for ${product.name}`, async ({ productPage }) => { ... });
 }
 ```
+
+A single loop over `products.json` produces 6 independent test cases. Adding a new product to the JSON automatically creates a new test — the spec file never needs to change.
+
+| Data file | Used by |
+|-----------|---------|
+| `products.json` | Inventory, product details, cart, and checkout specs |
+| `users.json` | Login spec (valid, locked-out, invalid credential scenarios) |
+| `sample-checkout-data.json` | Checkout step one form filling |
 
 ---
 
