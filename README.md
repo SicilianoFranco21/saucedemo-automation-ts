@@ -1,6 +1,6 @@
 # Saucedemo E2E Automation
 
-![CI Regression](https://github.com/francosiciliano/saucedemo-automation-ts/actions/workflows/ci-regression.yml/badge.svg)
+![CI Regression](https://github.com/SicilianoFranco21/saucedemo-automation-ts/actions/workflows/ci-regression.yml/badge.svg)
 ![Playwright](https://img.shields.io/badge/Playwright-1.58-45ba4b?logo=playwright)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?logo=typescript)
 ![Node](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs)
@@ -30,7 +30,7 @@ End-to-end test automation suite for [saucedemo.com](https://www.saucedemo.com) 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/francosiciliano/saucedemo-automation-ts.git
+git clone https://github.com/SicilianoFranco21/saucedemo-automation-ts.git
 cd saucedemo-automation-ts
 
 # 2. Install dependencies
