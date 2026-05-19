@@ -3,6 +3,8 @@ import users from '../../data/users.json' with { type: 'json' };
 
 // Feature: Login
 
+test.use({ storageState: undefined });
+
 type LoginButtonState = { name: string; username: string; password: string };
 type ErrorScenario = { name: string; username: string; password: string; expectedError: string };
 

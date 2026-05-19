@@ -6,7 +6,6 @@ import { CheckoutStepOnePage } from '../pages/checkout-step-one-page.js';
 import { CheckoutStepTwoPage } from '../pages/checkout-step-two-page.js';
 import { CheckoutCompletePage } from '../pages/checkout-complete-page.js';
 import { ProductPage } from '../pages/product-page.js';
-import users from '../data/users.json' with { type: 'json' };
 
 type SauceDemoFixtures = {
   loginPage: LoginPage;
@@ -27,9 +26,7 @@ export const test = base.extend<SauceDemoFixtures>({
   },
 
   authenticatedPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.navigate();
-    await loginPage.login(users.standard);
+    await page.goto('/inventory.html');
     await use(page);
   },
 
